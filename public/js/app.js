@@ -34550,7 +34550,7 @@ var App = function (_Component) {
                     function (state) {
                         return state.loaded ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Router */],
-                            { basename: 'bank', history: state.history },
+                            { history: state.history },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
                                 null,
@@ -56417,7 +56417,7 @@ var Store = function (_Component) {
                 state[localStorage.key(i)] = JSON.parse(localStorage.getItem(localStorage.key(i)));
             }
             this.setState(_extends({}, state, {
-                history: Object(__WEBPACK_IMPORTED_MODULE_1_history__["a" /* createBrowserHistory */])(),
+                history: Object(__WEBPACK_IMPORTED_MODULE_1_history__["a" /* createBrowserHistory */])({ basename: "bank" }),
                 updateStore: this.updateStore.bind(this)
             }));
         }

@@ -15,7 +15,7 @@ export default class Store extends Component {
         }
         this.setState({
             ...state,
-            history: createBrowserHistory(),
+            history: createBrowserHistory({basename: "bank"}),
             updateStore: this.updateStore.bind(this)
         });
     }
