@@ -6,6 +6,7 @@ import Home from '../Pages/Home';
 import Register from "../Pages/Register";
 import Login from "../Pages/Login";
 
+
 export default () => (
     <Store.Consumer>
         {

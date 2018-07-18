@@ -17,7 +17,7 @@ export default class App extends Component {
                     {
                         (state) => {
                             return state.loaded ?
-                                <Router history={state.history}>
+                                <Router basename="bank" history={state.history}>
                                     <div>
                                         <Header/>
                                         <Routes/>
