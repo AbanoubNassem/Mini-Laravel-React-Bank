@@ -1,0 +1,37 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+<IfModule mod_headers.c>
+    <Files "index.php">
+      Header set Access-Control-Allow-Origin "*"
+      Header set Access-Control-Allow-Credentials true
+      Header set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+      Header set Access-Control-Allow-Headers: "Content-Type, X-Auth-Token, Origin, Authorization  ,Content-Language "
+      Header set Access-Control-Expose-Headers: "Authorization,Content-Language"
+    </Files>
+</IfModule>
+
+    RewriteEngine On
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_URI} !(\.html|\.css|\.js|\.ico|\.png|\.jpg|\.jpeg|\.gif|robots\.txt|\.woff|\.woff2)$ [NC]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(css|js|images|img|fonts|vendor|storage)/(.*)$ public/$1/$2 [L,NC]
+
+    RewriteRule ^.env - [F,L,NC]
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
