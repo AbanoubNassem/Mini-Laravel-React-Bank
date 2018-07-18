@@ -11,7 +11,6 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.setPublicPath('public/assets');
-mix.setResourceRoot('../../');
+mix.setResourceRoot('../');
 mix.react('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
