@@ -1,7 +1,9 @@
 <script>
     var shared = {!! json_encode([
-            'csrfToken' => csrf_token(),
-            'user' => Auth::user(),
-            'signedIn' => Auth::check()
+            'basename' => env('basename','bank')
         ]) !!};
+
+        function to(path) {
+            return '{{URL::to('/').'/api'}}' + path;
+        }
 </script>

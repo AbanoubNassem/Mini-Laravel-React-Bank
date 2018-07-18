@@ -77053,7 +77053,7 @@ var Store = function (_Component) {
                 state[localStorage.key(i)] = JSON.parse(localStorage.getItem(localStorage.key(i)));
             }
             this.setState(_extends({}, state, {
-                history: Object(__WEBPACK_IMPORTED_MODULE_1_history__["a" /* createBrowserHistory */])({ basename: "bank" }),
+                history: Object(__WEBPACK_IMPORTED_MODULE_1_history__["a" /* createBrowserHistory */])({ basename: shared.basename }),
                 updateStore: this.updateStore.bind(this)
             }));
         }
@@ -77255,7 +77255,7 @@ var Register = function (_PureComponent) {
             var _this2 = this;
 
             this.setState({ submitting: true });
-            window.axios.post('/api/register', this.state).then(function (res) {
+            window.axios.post(to('/register'), this.state).then(function (res) {
                 _this2.setState({ submitting: false });
                 console.log(res);
                 _this2.props.updateStore({
@@ -77363,7 +77363,7 @@ var Login = function (_PureComponent) {
             var _this2 = this;
 
             this.setState({ submitting: true });
-            window.axios.post('/api/login', this.state).then(function (res) {
+            window.axios.post(to('/login'), this.state).then(function (res) {
                 _this2.setState({ submitting: false });
                 console.log(res);
                 _this2.props.updateStore({
