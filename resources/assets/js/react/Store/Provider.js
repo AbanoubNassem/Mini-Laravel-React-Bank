@@ -41,7 +41,7 @@ export default class Store extends Component {
                     this.setState({});
                     this.setState({loaded: true});
                     this.state.history.replace('/');
-                    location.reload();
+                    // location.reload();
                 });
         } else {
             this.setState({loaded: true})
