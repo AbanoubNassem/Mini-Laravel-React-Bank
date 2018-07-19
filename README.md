@@ -2,7 +2,7 @@
 
 >Note : This simple app was made in 24hours 
 
->The app was made with TDD in mind , but due to the short time I had , I just added few tests 
+>The app was made with TDD in mind , but due to the short time, I just added few tests 
 
 
 
@@ -34,10 +34,12 @@
 
 
 #####TODO:
+
 ######Refactoring 
  >Due to the lack of time , I couldn't do this!
  
     - Full test Suite
-    - Introudce Caching for both (Frong/Back) End
+    - Introudce Caching for both (Front/Back) End
     - Refactoring to make the code more simpler and readable.
     - Consider using fraction will transfering money , instead of using intgerers
+    - Add more features.
