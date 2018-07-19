@@ -29,7 +29,7 @@ export default class Store extends Component {
         if (this.state.access_token) {
             //lets make sure it's valid one!
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.state.access_token;
-            axios.post('/api/refresh')
+            axios.post(to('/api/refresh'))
                 .then(res => {
                     if (res.headers.Authorization) {
                         this.updateStore({access_token: res.headers.Authorization});
