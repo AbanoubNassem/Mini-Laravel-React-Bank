@@ -32,10 +32,11 @@
     - Reactive UI!
     
 
-
 ###TODO:
 
+
 #####Refactoring 
+
  >Due to the lack of time , I couldn't do this!
  
     - Full test Suite
