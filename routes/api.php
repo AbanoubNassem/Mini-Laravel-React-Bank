@@ -19,16 +19,25 @@ Route::post('/logout', function () {
     return response()->json();
 });
 
+
+/**  for demo only  **/
+Route::get('/accounts', function () {
+    return response()->json(\App\Models\User::all());
+});
+/**----------------------------**/
+
 Route::group(['middleware' => ['auth.token']], function () {
     Route::post('/refresh', function () {
         /*do nothing the TokenRefresh middleware will take care of it*/
     });
 
-    Route::get('/currencies',function (){
+    Route::get('/currencies', function () {
         return \App\Models\Currency::all();
     });
 
     Route::put('/currency/{id}', 'CurrencyController@update');
+
+    Route::post('/transfer/{to}/{amount}', 'TransferController@transfer');
 });
 
 

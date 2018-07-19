@@ -56,7 +56,7 @@ class APIAuth extends Controller
             return response()->json(['user' => $user, 'access_token' => JWTAuth::fromUser($user)], 201);
         }
 
-        return response()->json(['message' => 'Invalid Credentials!'], 500);
+        return response()->json(['message' => 'Invalid Credentials!', 'data' => []], 401);
     }
 
 

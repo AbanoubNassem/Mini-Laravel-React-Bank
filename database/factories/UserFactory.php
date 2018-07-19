@@ -19,6 +19,7 @@ $factory->define(\App\Models\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
-        'currency_id' => 1
+        'currency_id' => 1,
+        'account_id' => random_int(100000, 100000 * 1000)
     ];
 });

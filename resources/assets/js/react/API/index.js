@@ -11,7 +11,19 @@ function changeCurrency(currency_id) {
     return axios.put(to('/currency/' + currency_id));
 }
 
+function transferTo(account_id, amount) {
+    return axios.post(to(`/transfer/${account_id}/${amount}`));
+}
+
+//for demo
+
+function getAccounts() {
+    return axios.get(to('/accounts'));
+}
+
 export default {
     getCurrencies,
-    changeCurrency
+    changeCurrency,
+    getAccounts,
+    transferTo
 }

@@ -21,7 +21,6 @@ export default class Register extends PureComponent {
         this.setState({submitting: true});
         window.axios.post(to('/register'), this.state).then(res => {
                 this.setState({submitting: false});
-                console.log(res);
                 this.props.updateStore({
                     user: res.data.user,
                     access_token: res.data.access_token,

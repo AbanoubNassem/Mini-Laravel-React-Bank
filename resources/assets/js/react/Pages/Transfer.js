@@ -2,12 +2,12 @@ import React, {PureComponent} from 'react';
 import {Button, Grid, Form} from 'semantic-ui-react'
 import utlis from '../Utilities';
 
-export default class Login extends PureComponent {
+export default class Transfer extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            password: '',
+            account_id: '',
+            amount: '',
             submitting: false
         };
 
@@ -17,22 +17,20 @@ export default class Login extends PureComponent {
 
     submit() {
         this.setState({submitting: true});
-        window.axios.post(to('/login'), this.state)
+        this.props.api.transferTo(this.state.account_id, this.state.amount)
             .then(res => {
-                this.setState({submitting: false});
+                this.props.user.balance = ((this.props.user.balance * this.props.user.currency.rate) - this.state.amount) / this.props.user.currency.rate;
+
                 this.props.updateStore({
-                    user: res.data.user,
-                    access_token: res.data.access_token,
-                    signedIn: true
+                    user: this.props.user
                 }, true).then(() => {
-                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.props.access_token;
-                    this.props.init();
-                    this.props.history.replace('/');
-                    toastr.success('You have logged in.');
+                    toastr.success(res.data.message);
                 });
+
+                this.setState({submitting: false});
             })
             .catch(err => {
-                toastr.error('Invalid Email or Password!');
+                toastr.error(err.response.data.message);
 
                 this.setState({submitting: false});
             });
@@ -50,8 +48,9 @@ export default class Login extends PureComponent {
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <Form>
-                        <Form.Input required label='Email' type='email' name="email" onChange={this.inputChanged}/>
-                        <Form.Input required label='Password' type='password' name="password"
+                        <Form.Input required label='Account Id' type='number' name="account_id"
+                                    onChange={this.inputChanged}/>
+                        <Form.Input required label='Amount' type='number' name="amount"
                                     onChange={this.inputChanged}/>
                         <Button loading={this.state.submitting} primary type='submit'
                                 onClick={this.submit}>Submit</Button>
