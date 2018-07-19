@@ -21,7 +21,7 @@ export default class Store extends Component {
             clearStore: this.clearStore.bind(this),
             api: {...API},
             init: this.init.bind(this),
-            currencies : []
+            currencies: []
         });
     }
 
@@ -29,7 +29,7 @@ export default class Store extends Component {
         if (this.state.access_token) {
             //lets make sure it's valid one!
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.state.access_token;
-            axios.post(to('/api/refresh'))
+            axios.post(to('/refresh'))
                 .then(res => {
                     if (res.headers.Authorization) {
                         this.updateStore({access_token: res.headers.Authorization});
@@ -41,7 +41,7 @@ export default class Store extends Component {
                     this.setState({});
                     this.setState({loaded: true});
                     this.state.history.replace('/');
-                    // location.reload();
+                    location.reload();
                 });
         } else {
             this.setState({loaded: true})

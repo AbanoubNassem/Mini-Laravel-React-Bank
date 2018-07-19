@@ -77079,7 +77079,7 @@ var Store = function (_Component) {
             if (this.state.access_token) {
                 //lets make sure it's valid one!
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.state.access_token;
-                axios.post(to('/api/refresh')).then(function (res) {
+                axios.post(to('/refresh')).then(function (res) {
                     if (res.headers.Authorization) {
                         _this2.updateStore({ access_token: res.headers.Authorization });
                     }
@@ -77089,7 +77089,7 @@ var Store = function (_Component) {
                     _this2.setState({});
                     _this2.setState({ loaded: true });
                     _this2.state.history.replace('/');
-                    // location.reload();
+                    location.reload();
                 });
             } else {
                 this.setState({ loaded: true });
