@@ -18,6 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->float('balance')->default(0.0);
+            $table->unsignedInteger('currency_id')->default(1); // which is USD later user can change
+            $table->unsignedInteger('account_id')->unique();
             $table->rememberToken();
             $table->timestamps();
         });

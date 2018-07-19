@@ -4,6 +4,11 @@
  * building robust, powerful web applications using React + Laravel.
  */
 
+Number.prototype.format = function(n, x) {
+    let re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
+};
+
 import './bootstrap';
 
 /**
@@ -14,4 +19,8 @@ import './bootstrap';
 
 import toastr from 'toastr/toastr';
 window.toastr = toastr;
+window.toastr.options = {
+    positionClass: "toast-bottom-right",
+};
 import './react';
+

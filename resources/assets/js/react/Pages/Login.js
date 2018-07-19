@@ -25,6 +25,8 @@ export default class Login extends PureComponent {
                     access_token: res.data.access_token,
                     signedIn: true
                 }, true).then(() => {
+                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.props.access_token;
+                    this.props.init();
                     this.props.history.replace('/');
                     toastr.success('You have logged in.');
                 });

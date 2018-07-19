@@ -23,6 +23,12 @@ Route::group(['middleware' => ['auth.token']], function () {
     Route::post('/refresh', function () {
         /*do nothing the TokenRefresh middleware will take care of it*/
     });
+
+    Route::get('/currencies',function (){
+        return \App\Models\Currency::all();
+    });
+
+    Route::put('/currency/{id}', 'CurrencyController@update');
 });
 
 

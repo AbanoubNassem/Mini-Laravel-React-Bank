@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'currency_id', 'account_id', 'balance'
     ];
 
     /**
@@ -24,6 +24,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'email',
     ];
+
+    protected $with = ['currency'];
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
 }

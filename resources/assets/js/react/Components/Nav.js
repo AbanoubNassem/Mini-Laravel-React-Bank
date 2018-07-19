@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Input, Menu, Segment} from 'semantic-ui-react';
+import {Input, Menu, Dropdown} from 'semantic-ui-react';
 
 
 export default class MenuExamplePointing extends Component {
@@ -22,6 +22,15 @@ export default class MenuExamplePointing extends Component {
         this.props.history.replace(`/${name}`);
     }
 
+    changeCurrency(id) {
+        this.props.api.changeCurrency(id)
+            .then(({data}) => {
+                let user = this.props.user;
+                user['currency'] = data.data;
+                this.props.updateStore({user: user}, true);
+            });
+    }
+
     render() {
         const {activeItem} = this.state;
 
@@ -30,13 +39,13 @@ export default class MenuExamplePointing extends Component {
                 <Menu.Item name='home' active={activeItem === 'home'}
                            onClick={this.handleItemClick}/>
                 <Menu.Item
-                    name='messages'
-                    active={activeItem === 'messages'}
+                    name='about'
+                    active={activeItem === 'about'}
                     onClick={this.handleItemClick}
                 />
                 <Menu.Item
-                    name='friends'
-                    active={activeItem === 'friends'}
+                    name='more'
+                    active={activeItem === 'more'}
                     onClick={this.handleItemClick}
                 />
 
@@ -59,6 +68,39 @@ export default class MenuExamplePointing extends Component {
                         </Menu.Menu>
                         :
                         <Menu.Menu position='right'>
+
+                            {
+                                this.props.currencies ?
+                                    <Dropdown item
+                                              text="Currencies">
+                                        <Dropdown.Menu>
+                                            {
+                                                this.props.currencies.map((c) => {
+                                                    return (
+                                                        <Dropdown.Item key={c.id}
+                                                                       onClick={() => this.changeCurrency(c.id)}>
+                                                            {`${c.name}(${c.symbol})`}
+                                                        </Dropdown.Item>
+                                                    )
+                                                })
+                                            }
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                    : null
+                            }
+
+                            <Dropdown item
+                                      text={`${this.props.user.name} ${(this.props.user.balance * this.props.user.currency.rate).format(2, 3, '.', ',')} ${this.props.user.currency.symbol}`}>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item>Transfer</Dropdown.Item>
+                                    <Dropdown.Item>Transactions</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                        toastr.info('You have logged out');
+                                        this.props.clearStore();
+                                    }}>Logout</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+
                             <Menu.Item>
                                 <Input icon='search' placeholder='Search...'/>
                             </Menu.Item>

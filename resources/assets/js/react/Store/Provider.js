@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {createBrowserHistory} from 'history';
 import Context from './Context';
+import API from '../API';
 
 
 export default class Store extends Component {
@@ -15,8 +16,12 @@ export default class Store extends Component {
         }
         this.setState({
             ...state,
-            history: createBrowserHistory({basename:shared.basename}),
-            updateStore: this.updateStore.bind(this)
+            history: createBrowserHistory({basename: shared.basename}),
+            updateStore: this.updateStore.bind(this),
+            clearStore: this.clearStore.bind(this),
+            api: {...API},
+            init: this.init.bind(this),
+            currencies : []
         });
     }
 
@@ -29,16 +34,26 @@ export default class Store extends Component {
                     if (res.headers.Authorization) {
                         this.updateStore({access_token: res.headers.Authorization});
                     }
-                    this.setState({loaded: true});
+                    this.init();
                 })
                 .catch(err => {
                     localStorage.clear();
                     this.setState({});
-                    this.setState({loaded: true})
+                    this.setState({loaded: true});
+                    this.state.history.replace('/');
+                    location.reload();
                 });
         } else {
             this.setState({loaded: true})
         }
+    }
+
+    clearStore() {
+        this.state.history.replace('/');
+        location.reload();
+        this.setState(null);
+        localStorage.clear();
+
     }
 
     updateStore(object, andSave = false) {
@@ -55,6 +70,13 @@ export default class Store extends Component {
                 resolve()
             });
         })
+    }
+
+    init() {
+        this.state.api.getCurrencies().then(res => {
+            this.updateStore({currencies: res.data})
+        });
+        this.setState({loaded: true});
     }
 
     render() {
