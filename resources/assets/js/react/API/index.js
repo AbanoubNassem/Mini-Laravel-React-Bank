@@ -15,15 +15,25 @@ function transferTo(account_id, amount) {
     return axios.post(to(`/transfer/${account_id}/${amount}`));
 }
 
+function getSentTransactions() {
+    return axios.get(to('/sent-transaction'));
+}
+
+function getReceivedTransactions() {
+    return axios.get(to('/received-transaction'));
+}
+
 //for demo
 
 function getAccounts() {
-    return axios.get(to('/accounts'));
+    return axios.get(to('/transactions'));
 }
 
 export default {
     getCurrencies,
     changeCurrency,
     getAccounts,
-    transferTo
+    transferTo,
+    getSentTransactions,
+    getReceivedTransactions
 }

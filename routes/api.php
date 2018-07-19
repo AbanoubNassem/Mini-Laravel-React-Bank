@@ -21,14 +21,15 @@ Route::post('/logout', function () {
 
 
 /**  for demo only  **/
-Route::get('/accounts', function () {
+Route::get('/transactions', function () {
     return response()->json(\App\Models\User::all());
 });
 /**----------------------------**/
 
 Route::group(['middleware' => ['auth.token']], function () {
     Route::post('/refresh', function () {
-        /*do nothing the TokenRefresh middleware will take care of it*/
+        //maybe user got new transactions , refetch it
+        return response()->json(auth()->user()->fresh());
     });
 
     Route::get('/currencies', function () {
@@ -38,6 +39,14 @@ Route::group(['middleware' => ['auth.token']], function () {
     Route::put('/currency/{id}', 'CurrencyController@update');
 
     Route::post('/transfer/{to}/{amount}', 'TransferController@transfer');
+
+    Route::get('/received-transaction',function(){
+       return response()->json(auth()->user()->receivedTransactions);
+    });
+
+    Route::get('/sent-transaction',function(){
+        return response()->json(auth()->user()->sentTransactions);
+    });
 });
 
 

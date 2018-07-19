@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react';
 import {Button, Grid, Form} from 'semantic-ui-react'
-import utlis from '../Utilities';
 
 export default class Transfer extends PureComponent {
     constructor(props) {

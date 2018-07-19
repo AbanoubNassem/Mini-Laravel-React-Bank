@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,12 @@ class TransferController extends Controller
 
         $to->update([
             'balance' => $to->balance + $amount
+        ]);
+
+        Transaction::forceCreate([
+            'account_id' => auth()->user()->account_id,
+            'to_account_id' => $to->account_id,
+            'amount' => $amount
         ]);
 
         return response()->json([

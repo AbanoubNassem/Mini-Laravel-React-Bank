@@ -33,4 +33,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Currency::class);
     }
+
+    public function sentTransactions()
+    {
+        return $this->hasMany(Transaction::class , 'account_id', 'account_id');
+    }
+
+    public function receivedTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'to_account_id' , 'account_id');
+    }
 }

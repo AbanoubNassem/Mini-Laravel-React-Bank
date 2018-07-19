@@ -93,7 +93,8 @@ export default class MenuExamplePointing extends Component {
                                       text={`${this.props.user.name} ${(this.props.user.balance * this.props.user.currency.rate).format(2, 3, '.', ',')} ${this.props.user.currency.symbol}`}>
                                 <Dropdown.Menu>
                                     <Dropdown.Item name="transfer" onClick={this.handleItemClick}>Transfer</Dropdown.Item>
-                                    <Dropdown.Item>Transactions</Dropdown.Item>
+                                    <Dropdown.Item name="transactions_sent" onClick={this.handleItemClick}>Transactions Sent</Dropdown.Item>
+                                    <Dropdown.Item name="transactions_received" onClick={this.handleItemClick}>Transactions Received</Dropdown.Item>
                                     <Dropdown.Item onClick={() => {
                                         toastr.info('You have logged out');
                                         this.props.clearStore();

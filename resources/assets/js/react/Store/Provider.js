@@ -34,14 +34,15 @@ export default class Store extends Component {
                     if (res.headers.Authorization) {
                         this.updateStore({access_token: res.headers.Authorization});
                     }
-                    this.init();
+
+                    this.updateStore({user: res.data}, true).then(() => this.init());
                 })
                 .catch(err => {
                     localStorage.clear();
                     this.setState({});
                     this.setState({loaded: true});
                     this.state.history.replace('/');
-                    location.reload();
+                    // location.reload();
                 });
         } else {
             this.setState({loaded: true})
