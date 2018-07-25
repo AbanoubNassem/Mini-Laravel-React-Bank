@@ -1,14 +1,24 @@
-
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
 // Variables
 @import "variables";
-
 @import "~toastr/toastr";
 @import "~semantic-ui-css/semantic.css";
 
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.top-select {
+  border: none !important;
+  border-left: 1px solid rgba(34, 36, 38, 0.15) !important;
+  min-width: 70px !important;
+  .text {
+    top: 15% !important;
+  }
+
+  .icon {
+    top: 30% !important;
+  }
 }

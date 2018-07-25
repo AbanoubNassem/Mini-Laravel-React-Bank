@@ -20,5 +20,9 @@
         "semantic-ui-css": "^2.3.3",
         "semantic-ui-react": "^0.82.0",
         "toastr": "^2.1.4"
+    },
+    "dependencies": {
+        "laravel-echo": "^1.4.0",
+        "pusher-js": "^4.2.2"
     }
 }

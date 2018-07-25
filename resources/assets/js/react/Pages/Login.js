@@ -17,7 +17,7 @@ export default class Login extends PureComponent {
 
     submit() {
         this.setState({submitting: true});
-        window.axios.post(to('/login'), this.state)
+        this.props.api.login(this.state)
             .then(res => {
                 this.setState({submitting: false});
                 this.props.updateStore({

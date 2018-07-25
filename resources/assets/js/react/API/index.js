@@ -7,6 +7,14 @@ function getCurrencies() {
     return axios.get(to('/currencies'));
 }
 
+function login(data) {
+    return window.axios.post(to('/login'), data);
+}
+
+function register(data) {
+    return window.axios.post(to('/register'), data);
+}
+
 function changeCurrency(currency_id) {
     return axios.put(to('/currency/' + currency_id));
 }
@@ -30,6 +38,8 @@ function getAccounts() {
 }
 
 export default {
+    login,
+    register,
     getCurrencies,
     changeCurrency,
     getAccounts,

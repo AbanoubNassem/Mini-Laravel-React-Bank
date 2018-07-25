@@ -19,6 +19,9 @@
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/test', function () {
+
+});
 
 Route::get('{reactRoutes}', function () {
     return view('home'); // your start view

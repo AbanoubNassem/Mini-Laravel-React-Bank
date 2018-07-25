@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import {Input, Menu, Dropdown} from 'semantic-ui-react';
+import {Input, Menu, Dropdown, Select} from 'semantic-ui-react';
 
 
 export default class MenuExamplePointing extends Component {
     constructor(props) {
         super(props);
-        this.state = {activeItem: 'home'};
+        this.state = {
+            activeItem: 'home',
+        };
 
         this.handleItemClick = this.handleItemClick.bind(this);
     }
@@ -16,6 +18,21 @@ export default class MenuExamplePointing extends Component {
         })
     }
 
+    mapCurrencies() {
+        let arr = [];
+
+
+        this.props.currencies.forEach((c) => {
+            arr.push({
+                key: c.id,
+                text: c.name,
+                value: c.id
+            });
+        });
+
+        return arr;
+    }
+
 
     handleItemClick(e, {name}) {
         this.setState({activeItem: name});
@@ -23,6 +40,7 @@ export default class MenuExamplePointing extends Component {
     }
 
     changeCurrency(id) {
+        this.setState({value: id});
         this.props.api.changeCurrency(id)
             .then(({data}) => {
                 let user = this.props.user;
@@ -68,33 +86,36 @@ export default class MenuExamplePointing extends Component {
                         </Menu.Menu>
                         :
                         <Menu.Menu position='right'>
+                            < Menu.Item
+                                name='forex'
+                                active={activeItem === 'forex'}
+                                onClick={this.handleItemClick}
+                            />
 
                             {
-                                this.props.currencies ?
-                                    <Dropdown item
-                                              text="Currencies">
-                                        <Dropdown.Menu>
-                                            {
-                                                this.props.currencies.map((c) => {
-                                                    return (
-                                                        <Dropdown.Item key={c.id}
-                                                                       onClick={() => this.changeCurrency(c.id)}>
-                                                            {`${c.name}(${c.symbol})`}
-                                                        </Dropdown.Item>
-                                                    )
-                                                })
-                                            }
-                                        </Dropdown.Menu>
-                                    </Dropdown>
+                                this.props.currencies && this.props.currencies.length ?
+
+                                    <Select
+                                        className={'top-select'}
+                                        search
+                                        options={this.mapCurrencies()}
+                                        value={this.props.user.currency.id}
+                                        onChange={(e, {value}) => this.changeCurrency(value)}
+                                    />
+
+
                                     : null
                             }
 
                             <Dropdown item
                                       text={`${this.props.user.name} ${(this.props.user.balance * this.props.user.currency.rate).format(2, 3, '.', ',')} ${this.props.user.currency.symbol}`}>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item name="transfer" onClick={this.handleItemClick}>Transfer</Dropdown.Item>
-                                    <Dropdown.Item name="transactions_sent" onClick={this.handleItemClick}>Transactions Sent</Dropdown.Item>
-                                    <Dropdown.Item name="transactions_received" onClick={this.handleItemClick}>Transactions Received</Dropdown.Item>
+                                    <Dropdown.Item name="transfer"
+                                                   onClick={this.handleItemClick}>Transfer</Dropdown.Item>
+                                    <Dropdown.Item name="transactions_sent" onClick={this.handleItemClick}>Transactions
+                                        Sent</Dropdown.Item>
+                                    <Dropdown.Item name="transactions_received" onClick={this.handleItemClick}>Transactions
+                                        Received</Dropdown.Item>
                                     <Dropdown.Item onClick={() => {
                                         toastr.info('You have logged out');
                                         this.props.clearStore();
@@ -102,9 +123,6 @@ export default class MenuExamplePointing extends Component {
                                 </Dropdown.Menu>
                             </Dropdown>
 
-                            <Menu.Item>
-                                <Input icon='search' placeholder='Search...'/>
-                            </Menu.Item>
                         </Menu.Menu>
                 }
             </Menu>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {createBrowserHistory} from 'history';
 import Context from './Context';
 import API from '../API';
+import Echo from "laravel-echo";
 
 
 export default class Store extends Component {
@@ -21,7 +22,8 @@ export default class Store extends Component {
             clearStore: this.clearStore.bind(this),
             api: {...API},
             init: this.init.bind(this),
-            currencies: []
+            currencies: [],
+            echo: {}
         });
     }
 
@@ -77,6 +79,26 @@ export default class Store extends Component {
         this.state.api.getCurrencies().then(res => {
             this.updateStore({currencies: res.data})
         });
+
+
+        this.setState({
+            echo: new Echo({
+                auth: {
+                    headers: {
+                        Authorization: 'Bearer ' + this.state.access_token
+                    }
+                },
+                broadcaster: 'pusher',
+                key: process.env.MIX_PUSHER_APP_KEY,
+                cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+                encrypted: true
+            })
+        });
+
+        this.state.echo.private('forex').listen('ForexChanged', ({currencies}) => {
+            this.setState({currencies});
+        });
+
         this.setState({loaded: true});
     }
 
