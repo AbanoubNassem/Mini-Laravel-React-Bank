@@ -89,6 +89,7 @@ export default class Store extends Component {
                         Authorization: 'Bearer ' + this.state.access_token
                     }
                 },
+                authEndpoint: to('/broadcasting/auth'),
                 broadcaster: 'pusher',
                 key: process.env.MIX_PUSHER_APP_KEY,
                 cluster: process.env.MIX_PUSHER_APP_CLUSTER,
