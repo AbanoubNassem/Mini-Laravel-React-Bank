@@ -47,6 +47,17 @@ Route::group(['middleware' => ['auth.token']], function () {
     Route::get('/sent-transaction',function(){
         return response()->json(auth()->user()->sentTransactions);
     });
+
+    Route::get('/notifications',function(){
+        return response()->json(auth()->user()->unreadNotifications);
+    });
+
+    Route::post('/read-notifications',function(){
+        foreach (auth()->user()->unreadNotifications as $notification)
+            $notification->markAsRead();
+
+        return response()->json();
+    });
 });
 
 

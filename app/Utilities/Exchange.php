@@ -126,7 +126,7 @@ class Exchange
             foreach ($this->data['rates'] as $key => $val) {
                 if ($key !== $this->base) {
                     // round to 6 decimal places
-                    $rates[$key] = (float)round($val * (1 / $base_rate), 6);
+                    $rates[$key] = (float)round($val * (1 / $base_rate), 6) ;
                 } else {
                     if ($this->source === 'ecb') {
                         $rates['EUR'] = (float)round(1 / $base_rate, 6);

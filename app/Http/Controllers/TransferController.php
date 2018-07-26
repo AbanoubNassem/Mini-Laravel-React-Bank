@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewNotification;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Notifications\NewTransaction;
 use Illuminate\Http\Request;
 
 class TransferController extends Controller
@@ -30,11 +32,19 @@ class TransferController extends Controller
             'balance' => $to->balance + $amount
         ]);
 
-        Transaction::forceCreate([
+        $transaction = Transaction::forceCreate([
             'account_id' => auth()->user()->account_id,
             'to_account_id' => $to->account_id,
             'amount' => $amount
         ]);
+
+        $transaction->loadMissing(['to', 'from']);
+
+        //notify the user
+        $to->notify(new NewTransaction($transaction));
+
+        //send the client real-time event
+        NewNotification::dispatch($to);
 
         return response()->json([
             'message' => 'You have successfully transferred ' . $amount * auth()->user()->currency->rate . ' ' . auth()->user()->currency->symbol . ' to ' . $to->name,

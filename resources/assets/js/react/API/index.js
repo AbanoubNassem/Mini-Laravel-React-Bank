@@ -19,6 +19,14 @@ function changeCurrency(currency_id) {
     return axios.put(to('/currency/' + currency_id));
 }
 
+function getNotifications() {
+    return axios.get(to('/notifications'));
+}
+
+function markNotificationsAsRead() {
+    return axios.post(to('/read-notifications'));
+}
+
 function transferTo(account_id, amount) {
     return axios.post(to(`/transfer/${account_id}/${amount}`));
 }
@@ -45,5 +53,7 @@ export default {
     getAccounts,
     transferTo,
     getSentTransactions,
-    getReceivedTransactions
+    getReceivedTransactions,
+    getNotifications,
+    markNotificationsAsRead
 }

@@ -14,3 +14,8 @@
 Broadcast::channel('forex', function ($user) {
     return true;
 });
+
+
+Broadcast::channel('notifications.{user_id}', function ($user, $user_id) {
+    return $user->id === (int)$user_id;
+});

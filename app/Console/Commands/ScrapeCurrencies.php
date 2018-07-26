@@ -41,7 +41,7 @@ class ScrapeCurrencies extends Command
     public function handle()
     {
         $this->info('fetching new rates');
-        $result = json_decode((new Exchange())->rates(), true);
+        $result = (new Exchange())->rates('yahoo', 'USD', 'array');
         $cached = \Cache::get('exchange.rates');
 
         $this->info('comparing with cached value');

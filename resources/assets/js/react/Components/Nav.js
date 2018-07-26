@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Input, Menu, Dropdown, Select} from 'semantic-ui-react';
+import {Input, Menu, Dropdown, Select, Icon} from 'semantic-ui-react';
 
 
 export default class MenuExamplePointing extends Component {
@@ -92,6 +92,34 @@ export default class MenuExamplePointing extends Component {
                                 onClick={this.handleItemClick}
                             />
 
+                            <Dropdown
+                                item
+                                icon={<Icon name='bell' color={this.props.notifications.length ? 'red' : 'grey'}/>}
+                                compact
+                                pointing
+                                label={{color: 'red', empty: true, circular: true}}
+                                text={String(this.props.notifications.length || '')}
+                            >
+                                <Dropdown.Menu>
+                                    {
+                                        this.props.notifications.map((notification) => {
+                                            return (
+                                                <Dropdown.Item key={notification.id}>
+                                                    {notification.data.message}
+                                                </Dropdown.Item>
+                                            )
+                                        })
+                                    }
+
+                                    <Dropdown.Divider/>
+
+                                    <Dropdown.Item onClick={() => this.props.api.markNotificationsAsRead()
+                                        .then(() => this.props.updateStore({notifications: []}))}>
+                                        Mark as read
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+
                             {
                                 this.props.currencies && this.props.currencies.length ?
 
@@ -122,6 +150,7 @@ export default class MenuExamplePointing extends Component {
                                     }}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
+
 
                         </Menu.Menu>
                 }

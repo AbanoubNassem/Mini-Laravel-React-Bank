@@ -23,7 +23,8 @@ export default class Store extends Component {
             api: {...API},
             init: this.init.bind(this),
             currencies: [],
-            echo: {}
+            echo: {},
+            notifications: []
         });
     }
 
@@ -34,7 +35,7 @@ export default class Store extends Component {
             axios.post(to('/refresh'))
                 .then(res => {
                     if (res.headers.Authorization) {
-                        this.updateStore({access_token: res.headers.Authorization});
+                        this.updateStore({access_token: res.headers.Authorization}, true);
                     }
 
                     this.updateStore({user: res.data}, true).then(() => this.init());
@@ -64,7 +65,7 @@ export default class Store extends Component {
 
             this.setState({...object}, () => {
                 if (andSave) {
-                    for (var key in object) {
+                    for (let key in object) {
                         if (object.hasOwnProperty(key)) {
                             localStorage.setItem(key, JSON.stringify(object[key]));
                         }
@@ -95,9 +96,15 @@ export default class Store extends Component {
             })
         });
 
-        this.state.echo.private('forex').listen('ForexChanged', ({currencies}) => {
-            this.setState({currencies});
-        });
+        this.state.api.getNotifications().then(({data}) => this.setState({notifications: data}));
+
+        this.state.echo.private('notifications.' + this.state.user.id)
+            .listen('NewNotification', ({notifications}) => {
+                this.setState({notifications});
+                if (notifications.length)
+                    toastr.info(notifications[notifications.length - 1].data.message);
+            });
+
 
         this.setState({loaded: true});
     }

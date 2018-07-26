@@ -1,6 +1,6 @@
 <script>
     var shared = {!! json_encode([
-            'basename' => env('basename','bank')
+            'basename' => env('BASENAME','bank')
         ]) !!};
 
         function to(path) {
