@@ -3,7 +3,7 @@
             'basename' => env('BASENAME','bank')
         ]) !!};
 
-        function to(path) {
-            return '{{URL::to('/').'/api'}}' + path;
-        }
+    function to(path, route = '/api') {
+        return '{{URL::to('/')}}' + route + path;
+    }
 </script>
