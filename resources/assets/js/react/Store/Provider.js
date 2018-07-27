@@ -23,6 +23,7 @@ export default class Store extends Component {
             api: {...API},
             init: this.init.bind(this),
             currencies: [],
+            filter: ['AED', 'EGP', 'EUR', 'ALL'],
             echo: {},
             notifications: []
         });
