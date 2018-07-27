@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-//        $schedule->command('scrape:currencies')
-//            ->everyMinute();
+        $schedule->command('scrape:currencies')
+            ->everyMinute();
     }
 
     /**
