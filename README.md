@@ -2,9 +2,6 @@
 
 #[Working Demo](http://abanoubnassem.tk/bank/home)
 
->Note : This simple app was made in 24hours 
-
->The app was made with TDD in mind , but due to the short time, I just added few tests 
 
 
 
@@ -16,11 +13,15 @@
 #### React Highlight
     - Semntic-UI for interface
     - ContextAPI for managing the state and avoid `Drilling`
+    - Real-Time update using Pusher with LaravelEcho
     
 
 #### Laravel Highlight
     - JWT token for authantications 
-    - TDD testing (2 examples)
+    - TDD testing 
+    - MySQL
+    - Caching
+    - Scarping Yahoo finance 
     
     
 ## App Highlight
@@ -32,17 +33,15 @@
     - Transfer Amount
     - Log System for the Transactions
     - Reactive UI!
+    - Real Time-Notifications
+    - Real Time Forex refreshed every 1 minute based on Yahoo finance
+    
     
 
-###TODO:
 
-
-#####Refactoring 
-
- >Due to the lack of time , I couldn't do this!
- 
-    - Full test Suite
-    - Introudce Caching for both (Front/Back) End
-    - Refactoring to make the code more simpler and readable.
-    - Consider using fraction will transfering money , instead of using intgerers
-    - Add more features.
+- [x] Refactoring 
+- [x] Full test Suite
+- [x] Introduce Caching for both (Front/Back) End
+- [x] Refactoring to make the code more simpler and readable.
+- [x] Consider using fraction will transfering money , instead of using intgerers
+- [x] Add more features.
