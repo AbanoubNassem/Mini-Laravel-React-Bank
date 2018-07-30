@@ -41,7 +41,6 @@
 ## TODO-List
 
 - [x] Refactoring 
-- [x] Full test Suite
 - [x] Introduce Caching for both (Front/Back) End
 - [x] Refactoring to make the code more simpler and readable.
 - [x] Consider using fraction will transfering money , instead of using intgerers
